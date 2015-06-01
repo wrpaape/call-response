@@ -1,3 +1,6 @@
+require_relative '../db/setup'
+# Remember to put the requires here for all the classes you write and want to use
+
 def parse_params(uri_fragments, query_param_string)
   params = {}
   params[:resource]  = uri_fragments[3]
@@ -50,8 +53,12 @@ loop do
     puts "Read more at : http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html"
   else
     REQUEST = parse(raw_request)
+    PARAMS  = REQUEST[:params]
+    # Use the REQUEST and PARAMS constants to full the request and
+    # return an appropriate reponse
+
     # YOUR CODE GOES BELOW HERE
-    #
+
     # YOUR CODE GOES ABOVE HERE  ^
   end
 end
