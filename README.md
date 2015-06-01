@@ -16,6 +16,8 @@ This folder structure should be suitable for starting a project that uses a data
 ├── Gemfile             # Details which gems are required by the project
 ├── README.md           # This file
 ├── Rakefile            # Defines `rake generate:migration` and `db:migrate`
+├── bin
+│   ├── run.rb          # `ruby bin/run.rb` will start the program.
 ├── config
 │   └── database.yml    # Defines the database config (e.g. name of file)
 ├── console.rb          # `ruby console.rb` starts `pry` with models loaded
