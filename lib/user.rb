@@ -21,7 +21,6 @@ class User < ActiveRecord::Base
     @response << "Response Code: #{@response_code}"
     @response << "-" * `tput cols`.chomp.to_i
     @response << " "
-    @response.join("\n")
   end
 
   def get_by_params(string, limit, offset)

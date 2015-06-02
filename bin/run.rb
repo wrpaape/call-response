@@ -63,22 +63,32 @@ loop do
 
 
     resources_string = PARAMS[:resource].capitalize.chop
-    resources = resources_string.constantize.new
+    resource_class = resources_string.constantize
+    resources = resource_class.new
+    response = []
+
     case REQUEST[:method]
     when "GET"
-      response = resources.get(PARAMS)
+      response << resources.get(PARAMS)
     when "DELETE"
-
+      resource_class.find(PARAMS[:id].to_i).destroy
+      response << "-" * `tput cols`.chomp.to_i
+      response << "#{resources_string + PARAMS[:id]} Succesfully Deleted"
+      response << "-" * `tput cols`.chomp.to_i
+      response << "Response Code: 200"
+      response << "-" * `tput cols`.chomp.to_i
+      response << " "
     when "POST"
 
     else
-      response = "-" * `tput cols`.chomp.to_i
-      response += "Not Found LOL"
-      response += "-" * `tput cols`.chomp.to_i
-      response += "Response Code: 404"
-      response += "-" * `tput cols`.chomp.to_i
-      response += " "
+      response << "-" * `tput cols`.chomp.to_i
+      response << "Not Found LOL"
+      response << "-" * `tput cols`.chomp.to_i
+      response << "Response Code: 404"
+      response << "-" * `tput cols`.chomp.to_i
+      response << " "
     end
+    response.join("\n")
     puts response
     # YOUR CODE GOES ABOVE HERE  ^
   end
