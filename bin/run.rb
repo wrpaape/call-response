@@ -73,7 +73,7 @@ loop do
     when "DELETE"
       resource_class.find(PARAMS[:id].to_i).destroy
       response << "-" * `tput cols`.chomp.to_i
-      response << "#{resources_string + PARAMS[:id]} Succesfully Deleted"
+      response << "#{resources_string.downcase + PARAMS[:id]} Succesfully Deleted"
       response << "-" * `tput cols`.chomp.to_i
       response << "Response Code: 200"
       response << "-" * `tput cols`.chomp.to_i

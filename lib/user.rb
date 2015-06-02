@@ -15,17 +15,13 @@ class User < ActiveRecord::Base
         @response << "-" * `tput cols`.chomp.to_i
       end
     else
-      get_by_params(string, limit, offset)
+      user_matches = User.where("first_name LIKE ?", "#{string}%").limit(limit).offset(offset)
+      get_all(user_matches)
     end
 
     @response << "Response Code: #{@response_code}"
     @response << "-" * `tput cols`.chomp.to_i
     @response << " "
-  end
-
-  def get_by_params(string, limit, offset)
-    user_matches = User.where("first_name LIKE ?", "#{string}%").limit(limit).offset(offset)
-    get_all(user_matches)
   end
 
   def get_all(users)
