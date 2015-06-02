@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
       @response_code = "404"
       @response << "Not Found LOL"
       @response << "-" * `tput cols`.chomp.to_i
-      response << "Response Code: #{@response_code}"
+      @response << "Response Code: #{@response_code}"
       @response << "-" * `tput cols`.chomp.to_i
       @response << " "
       @response.join("\n")
@@ -27,8 +27,13 @@ class User < ActiveRecord::Base
     id, string, limit, offset = [params[:id], params.fetch(:first_name, "%"), params.fetch(:limit, - 1).to_i, params.fetch(:offset, 0).to_i]
 
     if id
-      user = User.where(id: id)
-      get_all(user)
+      if user = User.find_by(id: id)
+        get_all([user])
+      else
+        @response_code = "404"
+        @response << "Not Found LOL"
+        @response << "-" * `tput cols`.chomp.to_i
+      end
     else
       get_by_params(string, limit, offset)
     end
@@ -45,8 +50,8 @@ class User < ActiveRecord::Base
   end
 
   def get_all(users)
-    users.each_with_index do |user, i|
-    @response << "user" + (i + 1).to_s + ":"
+    users.each_with_index do |user|
+    @response << "user" + user.id.to_s + ":"
     user.attributes.each do |k, v|
       @response << "   #{k} => #{v}"
     end
