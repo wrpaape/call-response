@@ -80,6 +80,8 @@ loop do
       response << " "
     when "POST"
 
+    when "PUT"
+
     else
       response << "-" * `tput cols`.chomp.to_i
       response << "Not Found LOL"
