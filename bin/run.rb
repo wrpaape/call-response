@@ -64,7 +64,21 @@ loop do
 
     resources_string = PARAMS[:resource].capitalize.chop
     resources = resources_string.constantize.new
-    response = resources.respond(REQUEST[:method], PARAMS)
+    case REQUEST[:method]
+    when "GET"
+      response = resources.get(PARAMS)
+    when "DELETE"
+
+    when "POST"
+
+    else
+      response = "-" * `tput cols`.chomp.to_i
+      response += "Not Found LOL"
+      response += "-" * `tput cols`.chomp.to_i
+      response += "Response Code: 404"
+      response += "-" * `tput cols`.chomp.to_i
+      response += " "
+    end
     puts response
     # YOUR CODE GOES ABOVE HERE  ^
   end
