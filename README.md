@@ -47,8 +47,8 @@ $ ruby bin/run.rb
 │   ├── migrate           # Folder containing generated migrations
 │   └── setup.rb          # `require`ing this file sets up the db connection
 └── lib                   # Your ruby code (models, etc.) should go here
-  └── keep
-  └── todo_list.rb    # model for 'todo_lists' table
-    └── all.rb            # Require this file to auto-require _all_ `.rb` files in `lib`
+│  └── keep
+│  └── todo_list.rb      # model for 'todo_lists' table
+│    └── all.rb            # Require this file to auto-require _all_ `.rb` files in `lib`
 └── bin
-    └── run.rb       # main program code
+    └── run.rb        # main program code
