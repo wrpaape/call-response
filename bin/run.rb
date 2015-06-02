@@ -1,4 +1,5 @@
 require_relative '../db/setup'
+require_relative '../lib/user'
 # Remember to put the requires here for all the classes you write and want to use
 
 def parse_params(uri_fragments, query_param_string)
@@ -52,6 +53,7 @@ loop do
     puts "\t'GET http://localhost:3000/students HTTP/1.1'"
     puts "Read more at : http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html"
   else
+    system('clear')
     REQUEST = parse(raw_request)
     PARAMS  = REQUEST[:params]
     # Use the REQUEST and PARAMS constants to full the request and
@@ -59,6 +61,11 @@ loop do
 
     # YOUR CODE GOES BELOW HERE
 
+
+    resources_string = PARAMS[:resource].capitalize.chop
+    resources = resources_string.constantize.new
+    response = resources.respond(REQUEST[:method], PARAMS)
+    puts response
     # YOUR CODE GOES ABOVE HERE  ^
   end
 end

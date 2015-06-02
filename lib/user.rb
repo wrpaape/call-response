@@ -1,0 +1,56 @@
+class User < ActiveRecord::Base
+
+
+  def respond(method, params)
+    @response = []
+    @response_code = "200"
+    case method
+    when "GET"
+      get(params)
+    when "DELETE"
+    when "POST"
+    else
+      @response_code = "404"
+      @response << "Not Found LOL"
+      @response << "-" * `tput cols`.chomp.to_i
+      response << "Response Code: #{@response_code}"
+      @response << "-" * `tput cols`.chomp.to_i
+      @response << " "
+      @response.join("\n")
+    end
+
+  end
+
+
+  def get(params)
+    @response << "-" * `tput cols`.chomp.to_i
+    id, string, limit, offset = [params[:id], params.fetch(:first_name, "%"), params.fetch(:limit, - 1).to_i, params.fetch(:offset, 0).to_i]
+
+    if id
+      user = User.where(id: id)
+      get_all(user)
+    else
+      get_by_params(string, limit, offset)
+    end
+
+    @response << "Response Code: #{@response_code}"
+    @response << "-" * `tput cols`.chomp.to_i
+    @response << " "
+    @response.join("\n")
+  end
+
+  def get_by_params(string, limit, offset)
+    user_matches = User.where("first_name LIKE ?", "#{string}%").limit(limit).offset(offset)
+    get_all(user_matches)
+  end
+
+  def get_all(users)
+    users.each_with_index do |user, i|
+    @response << "user" + (i + 1).to_s + ":"
+    user.attributes.each do |k, v|
+      @response << "   #{k} => #{v}"
+    end
+    @response << "-" * `tput cols`.chomp.to_i
+    end
+  end
+end
