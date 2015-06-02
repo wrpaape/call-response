@@ -79,7 +79,7 @@ loop do
       response << "-" * `tput cols`.chomp.to_i
       response << " "
     when "POST"
-
+      response.post(PARAMS)
     when "PUT"
 
     else

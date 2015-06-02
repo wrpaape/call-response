@@ -24,6 +24,13 @@ class User < ActiveRecord::Base
     @response << " "
   end
 
+  def post(params)
+    @response_code = "200"
+    @response = []
+    @response << "-" * `tput cols`.chomp.to_i
+    first_name, last_name, age = params.fetch(:first_name, "N/A"), params.fetch(:last_name, "N/A"), params.fetch(:age, 0)
+  end
+
   def get_all(users)
     users.each_with_index do |user|
     @response << "user" + user.id.to_s + ":"
